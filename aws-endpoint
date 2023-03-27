@@ -1,4 +1,5 @@
 import boto3
+from botocore.config import Config
 
 # Set your AWS access key and secret key
 access_key = 'YOUR_ACCESS_KEY'
@@ -7,11 +8,15 @@ secret_key = 'YOUR_SECRET_KEY'
 # Set the endpoint URL for your S3 service
 endpoint_url = 'https://your-s3-endpoint-url.com'
 
-# Create an S3 client with your credentials and endpoint URL
+# Set your proxy configuration
+proxy_config = Config(proxies={'https': 'http://your-proxy-url:your-proxy-port'})
+
+# Create an S3 client with your credentials, endpoint URL, and proxy configuration
 s3 = boto3.client('s3', 
                   aws_access_key_id=access_key, 
                   aws_secret_access_key=secret_key,
-                  endpoint_url=endpoint_url)
+                  endpoint_url=endpoint_url,
+                  config=proxy_config)
 
 # Set the name of the S3 bucket you want to query
 bucket_name = 'your-bucket-name'
